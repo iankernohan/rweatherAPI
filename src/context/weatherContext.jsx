@@ -5,6 +5,7 @@ const initialState = {
   forecast: [],
   loading: false,
   loadingText: "",
+  showDetails: false,
 };
 
 function reducer(state, action) {
@@ -16,6 +17,11 @@ function reducer(state, action) {
         forecast: action.payload.forecast,
         loading: false,
         loadingText: "",
+      };
+    case "showDetails":
+      return {
+        ...state,
+        showDetails: state.showDetails === true ? false : true,
       };
     case "loading":
       return {
@@ -39,14 +45,12 @@ function reducer(state, action) {
 const Context = createContext();
 
 export function WeatherContext({ children }) {
-  const [{ weather, forecast, loading, loadingText }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ weather, forecast, loading, loadingText, showDetails }, dispatch] =
+    useReducer(reducer, initialState);
 
   return (
     <Context.Provider
-      value={{ weather, forecast, loading, loadingText, dispatch }}
+      value={{ weather, forecast, loading, loadingText, showDetails, dispatch }}
     >
       {children}
     </Context.Provider>

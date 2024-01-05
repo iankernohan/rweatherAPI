@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SlMagnifier } from "react-icons/sl";
 import { useWeather } from "./context/weatherContext";
 import {
   getCoords,
@@ -10,9 +11,7 @@ import {
 export default function Input() {
   const [input, setInput] = useState("");
 
-  const { dispatch, forecast } = useWeather();
-
-  const isData = forecast.length > 0;
+  const { dispatch } = useWeather();
 
   async function hanldeSearch(e) {
     e.preventDefault();
@@ -58,17 +57,21 @@ export default function Input() {
     <section
       className={`mx-auto mb-8 mt-4 pt-5 flex gap-4 flex-col w-[80%] sm:w-[25rem] sm:pt-6 justify-center transition-all duration-500 `}
     >
-      <form onSubmit={hanldeSearch} className="flex">
+      <form onSubmit={hanldeSearch} className="flex relative">
         <input
           type="text"
+          autoFocus
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter Location"
-          className="rounded-full border border-blue-100 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 grow sm:p-4 sm:text-md"
+          className="rounded-full border border-blue-100 shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 grow sm:p-4 sm:text-md"
         />
+        <button className="absolute top-4 right-4 scale-150 sm:right-6 sm:top-5">
+          <SlMagnifier />
+        </button>
       </form>
       <button
-        className="bg-blue-500 text-blue-50 rounded-full py-2 px-3 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-offset-1 w-fit self-center"
+        className="bg-blue-500 text-blue-50 shadow-lg rounded-full py-2 px-3 hover:bg-blue-600 hover:shadow-none focus:outline-none focus:ring focus:ring-blue-500 focus:ring-offset-1 w-fit self-center"
         onClick={handleUseCurLoc}
       >
         Use Current Location

@@ -1,5 +1,5 @@
 import { useWeather } from "./context/weatherContext";
-import { moon, rainCloud, sun, thunderStorm, wind } from "./ImageSVG";
+import { sun, thunderStorm, wind } from "./ImageSVG";
 
 export default function WeatherImage() {
   const { forecast } = useWeather();
