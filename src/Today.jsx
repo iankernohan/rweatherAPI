@@ -26,15 +26,16 @@ export default function Today() {
               Feels like {Math.round(weather.main.feels_like)}&#8457;
             </p>
           </section>
+
           <button
             onClick={() => dispatch({ type: "clear" })}
-            className="absolute top-3 right-3"
+            className="absolute top-3 right-3 text-blue-800"
           >
             &#10005;
           </button>
           <button
             onClick={() => dispatch({ type: "showDetails" })}
-            className="absolute top-3 left-3 scale-150"
+            className="absolute top-3 left-3 scale-150 text-blue-800"
           >
             &#9432;
           </button>

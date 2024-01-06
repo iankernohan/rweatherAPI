@@ -41,7 +41,7 @@ export async function getCoords(location) {
     const lon = data[0].lon;
     return { lat, lon };
   } catch (err) {
-    throw new Error("Error getting coordinates " + err);
+    throw new Error(`Could not find location '${location}'`);
   }
 }
 
@@ -53,7 +53,7 @@ export async function getWeather(latitude, longitude) {
     const data = await res.json();
     return data;
   } catch (err) {
-    throw new Error("Error getting weather data " + err);
+    throw new Error(`Could not get weather for '${location}'`);
   }
 }
 
@@ -65,7 +65,7 @@ export async function getForecast(latitude, longitude) {
     const data = await res.json();
     return data.list;
   } catch (err) {
-    throw new Error("Error getting forcast data " + err);
+    throw new Error(`Could not get forecast for '${location}'`);
   }
 }
 
@@ -73,6 +73,4 @@ export function getUserPosition() {
   return new Promise((success, error) =>
     navigator.geolocation.getCurrentPosition(success, error)
   );
-
-  // navigator.geolocation.getCurrentPosition(success, error);
 }

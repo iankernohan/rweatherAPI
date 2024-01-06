@@ -37,9 +37,10 @@ export default function WeatherDetails() {
             <p>Sunset: {formatTime(weather.sys.sunset)}</p>
           </div>
         </div>
+
         <button
           onClick={() => dispatch({ type: "showDetails" })}
-          className="absolute top-3 right-3"
+          className="absolute top-3 right-3 text-blue-800"
         >
           &#10005;
         </button>

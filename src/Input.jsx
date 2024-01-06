@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SlMagnifier } from "react-icons/sl";
 import { useWeather } from "./context/weatherContext";
+import Error from "./Error";
 import {
   getCoords,
   getForecast,
@@ -11,7 +12,7 @@ import {
 export default function Input() {
   const [input, setInput] = useState("");
 
-  const { dispatch } = useWeather();
+  const { dispatch, error } = useWeather();
 
   async function hanldeSearch(e) {
     e.preventDefault();
@@ -23,9 +24,10 @@ export default function Input() {
         const weather = await getWeather(lat, lon);
         const forecast = await getForecast(lat, lon);
         dispatch({ type: "updateAllWeather", payload: { weather, forecast } });
+        setInput("");
       } catch (err) {
         dispatch({ type: "cancelLoading" });
-        throw new Error(err);
+        dispatch({ type: "error", payload: err.message });
       }
     }
   }
@@ -45,11 +47,13 @@ export default function Input() {
         const forecast = await getForecast(lat, lon);
         dispatch({ type: "updateAllWeather", payload: { weather, forecast } });
       } catch (err) {
-        dispatch({ type: "cancelLoading" });
-        throw new Error("Error getting user position: " + err);
+        dispatch({ type: "error", payload: "Could not get current location" });
       }
     } else {
-      throw new Error("Your browser does not suppost Geolocation");
+      dispatch({
+        type: error,
+        payload: "Your browser does not suppost Geolocation",
+      });
     }
   }
 
@@ -66,10 +70,11 @@ export default function Input() {
           placeholder="Enter Location"
           className="rounded-full border border-blue-100 shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 grow sm:p-4 sm:text-md"
         />
-        <button className="absolute top-4 right-4 scale-150 sm:right-6 sm:top-5">
+        <button className="absolute top-4 right-4 scale-150 sm:right-6 sm:top-5 text-blue-600">
           <SlMagnifier />
         </button>
       </form>
+      {error && <Error error={error} input={input} />}
       <button
         className="bg-blue-500 text-blue-50 shadow-lg rounded-full py-2 px-3 hover:bg-blue-600 hover:shadow-none focus:outline-none focus:ring focus:ring-blue-500 focus:ring-offset-1 w-fit self-center"
         onClick={handleUseCurLoc}

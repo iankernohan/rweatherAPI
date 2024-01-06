@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   loadingText: "",
   showDetails: false,
+  error: "",
 };
 
 function reducer(state, action) {
@@ -17,6 +18,7 @@ function reducer(state, action) {
         forecast: action.payload.forecast,
         loading: false,
         loadingText: "",
+        error: "",
       };
     case "showDetails":
       return {
@@ -35,6 +37,20 @@ function reducer(state, action) {
         loading: false,
         loadingText: "",
       };
+    case "error":
+      if (action.payload === "-1") {
+        return {
+          ...state,
+          error: "",
+        };
+      }
+
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        loadingText: "",
+      };
     case "clear":
       return initialState;
     default:
@@ -45,12 +61,22 @@ function reducer(state, action) {
 const Context = createContext();
 
 export function WeatherContext({ children }) {
-  const [{ weather, forecast, loading, loadingText, showDetails }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { weather, forecast, loading, loadingText, showDetails, error },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   return (
     <Context.Provider
-      value={{ weather, forecast, loading, loadingText, showDetails, dispatch }}
+      value={{
+        weather,
+        forecast,
+        loading,
+        loadingText,
+        showDetails,
+        error,
+        dispatch,
+      }}
     >
       {children}
     </Context.Provider>

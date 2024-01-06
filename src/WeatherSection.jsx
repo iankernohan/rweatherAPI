@@ -13,7 +13,7 @@ export default function WeatherSection() {
       initial={{ y: "100%" }}
       animate={isData && { y: 0 }}
       transition={{ duration: 0.5 }}
-      className="mt-[15rem] "
+      className="mt-[12rem] xs:mt-[16rem]"
     >
       <Today />
       <WeatherDetails />
