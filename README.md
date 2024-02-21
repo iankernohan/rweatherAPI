@@ -14,7 +14,7 @@ To run this application:
 
   or
 
-*visit: https://iankernohan.github.io/weatherAPI/
+* visit: https://iankernohan.github.io/weatherAPI/
 
 ## Available Scripts
 
